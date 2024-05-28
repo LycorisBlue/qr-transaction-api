@@ -5,22 +5,22 @@ const { generateToken, verifyRequestData } = require("../../config/utils");
 const bcrypt = require('bcryptjs');
 
 router.post('/', async (req, res) => {
-  const required = ["email", "mot_de_passe"];
+  const required = ["numero", "mot_de_passe"];
   const verify = verifyRequestData(req.body, required);
   if (!verify.isValid) {
     return res.status(400).json({ error: "Champs requis manquants", missingFields: verify.missingFields });
   }
 
   try {
-    const { email, mot_de_passe } = req.body;
-    const client = await Client.findOne({ where: { email } });
+    const { numero, mot_de_passe } = req.body;
+    const client = await Client.findOne({ where: { numero } });
     if (!client) {
-      return res.status(400).json({ error: 'Email ou mot de passe invalide' });
+      return res.status(400).json({ error: 'numero ou mot de passe invalide' });
     }
 
     const isMatch = await bcrypt.compare(mot_de_passe, client.mot_de_passe);
     if (!isMatch) {
-      return res.status(400).json({ error: 'Email ou mot de passe invalide' });
+      return res.status(400).json({ error: 'numero ou mot de passe invalide' });
     }
 
     const token = await generateToken(client, "CLIENT");
