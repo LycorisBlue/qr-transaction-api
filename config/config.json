@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "kirigaya@kazuto@lycoris@blue",
+    "password": "",
     "database": "qr_transaction_db",
     "host": "75.119.138.111",
     "dialect": "mysql"
